@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ivy Intelligence Hub | Student Competency Network</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <aside>
+        <div class="sidebar-header">
+          <h2>Ivy Intel</h2>
+          <p>Intelligence Hub</p>
+        </div>
+        <nav>
+          <button onclick="showSection('aggregator')">
+            <span class="icon">📰</span> Opportunity Hub
+          </button>
+          <button id="sidebar-sync-btn" onclick="runIntelligenceSync()" style="background: #a51c30; font-weight: bold; margin-top: 10px;">
+    <span class="icon">🔄</span> Sync Intelligence
+</button>
+            <span class="icon">🔄</span> Sync Intelligence
+          </button>
+          <hr style="opacity: 0.1; margin: 20px 0" />
+          <button onclick="showSection('applications')">
+    <span class="icon">📁</span> My Applications
+</button>
+          <button onclick="showSection('profile')">
+            <span class="icon">👤</span> My Competency
+          </button>
+          <button
+            onclick="showSection('system')"
+            style="color: #ff4757; margin-top: 20px"
+          >
+            <span class="icon">⚙️</span> System Control
+          </button>
+        </nav>
+      </aside>
+
+      <main>
+        <header class="aggregator-banner">
+          <div class="banner-text">
+            <h1 id="view-title">Opportunity Hub</h1>
+            <p id="view-subtitle">
+              Aggregated data from 8 Ivy League universities classified by AI.
+            </p>
+          </div>
+        </header>
+<section id="applications-section" class="content-view" style="display:none;">
+    <div class="profile-card">
+        <h2>Application History</h2>
+        <p>You have tracked applications for the following Ivy League programs:</p>
+        <ul id="app-history-list" style="list-style: none; padding: 0; margin-top: 20px;">
+            <li style="padding: 10px; border-bottom: 1px solid #eee;">No applications sent yet.</li>
+        </ul>
+    </div>
+</section>
+        <section id="aggregator-section" class="content-view">
+          <div class="filter-bar">
+            <span class="status-dot"></span> Live Monitoring: Harvard, Yale,
+            Princeton, Columbia, UPenn, Brown, Dartmouth, Cornell.
+          </div>
+          <div id="opportunity-feed" class="grid"></div>
+        </section>
+
+        <section
+          id="leaderboard-section"
+          class="content-view"
+          style="display: none"
+        >
+          <div id="leaderboard-content" class="profile-card"></div>
+        </section>
+
+        <section
+          id="profile-section"
+          class="content-view"
+          style="display: none"
+        >
+          <div class="profile-card">
+            <h2>Update Academic Profile</h2>
+            <p>
+              Standardize your achievements to recalculate your
+              <strong>InCoScore</strong>.
+            </p>
+            <hr />
+            <div class="form-group">
+              <label>Research Papers Published (50 pts)</label>
+              <input type="number" id="research-count" value="0" min="0" />
+            </div>
+            <div class="form-group">
+              <label>Hackathons Won/Participated (30 pts)</label>
+              <input type="number" id="hackathon-count" value="0" min="0" />
+            </div>
+            <div class="form-group">
+              <label>Internships Completed (20 pts)</label>
+              <input type="number" id="internship-count" value="0" min="0" />
+            </div>
+            <button onclick="submitProfileUpdate()" class="btn-primary">
+              Update InCoScore
+            </button>
+          </div>
+        </section>
+
+        <section id="system-section" class="content-view" style="display: none">
+          <div class="profile-card">
+            <h2>Intelligence Controller</h2>
+            <p>Monitor the real-time scraping and AI classification process.</p>
+            <div
+              id="sync-log"
+              style="
+                background: #000;
+                color: #00ff00;
+                padding: 15px;
+                font-family: monospace;
+                border-radius: 5px;
+                height: 250px;
+                overflow-y: auto;
+                margin-top: 20px;
+              "
+            >
+              > System Ready. Awaiting trigger...
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+
+    <script>
+      // Centralized UI Switcher
+      function showSection(sectionId) {
+        document
+          .querySelectorAll(".content-view")
+          .forEach((v) => (v.style.display = "none"));
+        document.getElementById(`${sectionId}-section`).style.display = "block";
+
+        const meta = {
+          aggregator: {
+            t: "Opportunity Hub",
+            s: "Live AI-classified academic opportunities.",
+          },
+          leaderboard: {
+            t: "Global Leaderboard",
+            s: "Ranking students by InCoScore competency.",
+          },
+          profile: {
+            t: "Student Competency",
+            s: "Manage your academic standing and ranking.",
+          },
+          system: {
+            t: "System Control",
+            s: "Backend monitoring and intelligence sync.",
+          },
+        };
+
+        document.getElementById("view-title").innerText = meta[sectionId].t;
+        document.getElementById("view-subtitle").innerText = meta[sectionId].s;
+
+        if (sectionId === "aggregator") loadOpportunities();
+        if (sectionId === "leaderboard") loadLeaderboard();
+      }
+
+      // Initialize view
+      window.onload = () => showSection("aggregator");
+    </script>
+  </body>
+</html>

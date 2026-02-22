@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ivy Intelligence & Student Competency Network</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <aside>
+        <div class="sidebar-header">
+          <h2>Ivy Intel</h2>
+          <p>Academic Network</p>
+        </div>
+        <nav>
+          <button onclick="showOpportunities()">
+            <span class="icon">🔍</span> Opportunities
+          </button>
+          <button onclick="loadLeaderboard()">
+            <span class="icon">🏆</span> Leaderboard
+          </button>
+          <button onclick="showProfileUpdate()">
+            <span class="icon">👤</span> My Profile
+          </button>
+        </nav>
+        <div class="sidebar-footer">
+          <small>Powered by AI & FastAPI</small>
+        </div>
+      </aside>
+
+      <main>
+        <header>
+          <div class="header-text">
+            <h1 id="page-title">Ivy League Opportunities</h1>
+            <p id="page-subtitle">
+              Real-time intelligence from Harvard, Yale, and more.
+            </p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-scrape" onclick="triggerScrape()">
+              Sync New Opportunities
+            </button>
+          </div>
+        </header>
+
+        <div id="content-grid" class="grid"></div>
+
+        <section id="profile-section" style="display: none">
+          <div class="profile-card">
+            <h2>Update Your Competency Profile</h2>
+            <p>
+              Standardize your achievements to calculate your
+              <strong>InCoScore</strong>.
+            </p>
+            <hr />
+            <div class="form-group">
+              <label>Research Papers Published</label>
+              <input type="number" id="research-count" value="0" min="0" />
+              <small>Weights: 50 points per paper</small>
+            </div>
+
+            <div class="form-group">
+              <label>Hackathons Won/Participated</label>
+              <input type="number" id="hackathon-count" value="0" min="0" />
+              <small>Weights: 30 points per event</small>
+            </div>
+
+            <div class="form-group">
+              <label>Internships Completed</label>
+              <input type="number" id="internship-count" value="0" min="0" />
+              <small>Weights: 20 points per internship</small>
+            </div>
+
+            <button onclick="submitProfileUpdate()" class="btn-primary">
+              Update InCoScore
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+
+    <script>
+      // Inline UI Switcher Logic
+      function showOpportunities() {
+        document.getElementById("page-title").innerText =
+          "Ivy League Opportunities";
+        document.getElementById("page-subtitle").innerText =
+          "Real-time intelligence from Harvard, Yale, and more.";
+        document.getElementById("content-grid").style.display = "grid";
+        document.getElementById("profile-section").style.display = "none";
+        loadOpportunities(); // Calls function from script.js
+      }
+
+      function showProfileUpdate() {
+        document.getElementById("page-title").innerText =
+          "Personal Competency Network";
+        document.getElementById("page-subtitle").innerText =
+          "Manage your academic standing.";
+        document.getElementById("content-grid").style.display = "none";
+        document.getElementById("profile-section").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
